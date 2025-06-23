@@ -56,7 +56,9 @@ function Register() {
         {errors.password && (
           <p className="text-red-600">{errors.password.message}</p>
         )}
-        <Button className="basis-128 bg-green-400">Create</Button>
+        <Button className="basis-128 bg-green-400 cursor-pointer">
+          Create
+        </Button>
         <div>
           <p className="text-white text-left">
             Already have account ?
