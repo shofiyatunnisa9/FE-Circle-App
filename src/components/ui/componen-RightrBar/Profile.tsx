@@ -1,0 +1,40 @@
+import EditDialog from "@/features/dialog/EditDialog";
+import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
+
+export default function ProfileBar() {
+  return (
+    <div className="bg-gray-800 p-4 rounded-lg pb-10">
+      <h2 className="text-xl font-bold pb-2">My Profile</h2>
+      <div className="w-full h-20 rounded-lg bg-gradient-to-r from-orange-300 via-orange-400 to-orange-300 mb-[-60px] "></div>
+
+      {/* Avatar & Edit Button */}
+      <div className="flex justify-between  items-center mt-2 px-4">
+        <div className=" mt-8 ">
+          <div className="flex gap-28">
+            <div>
+              <Avatar className="size-15">
+                <AvatarImage
+                  className="border-gray-800 border-4 rounded-full"
+                  src="https://github.com/shadcn.png"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+            <EditDialog />
+          </div>
+          <p>✨shofiyatunnisa✨</p>
+          <p className="text-gray-500">@shfytnsa</p>
+          <p className="text-sm">Hello welcome to my pages !!</p>
+          <div className=" flex text-sm gap-5">
+            <p className="text-gray-500">
+              <span className="font-bold text-white"> 203</span> Following
+            </p>
+            <p className="text-gray-500">
+              <span className="font-bold text-white">1k</span> Followers
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

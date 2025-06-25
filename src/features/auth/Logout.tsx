@@ -1,16 +1,21 @@
 // import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { useLogout } from "@/hooks/useLogout";
+import { BiLogOut } from "react-icons/bi";
 
 function Logout() {
-  //   const navigate = useNavigate();
-  //   const handleLogout = () => {
-  //     navigate("/login");
-  //   };
-
+  const { logout } = useLogout();
   return (
-    <div>
-      {/* <Button onClick={handleLogout}>Logout</Button> */}
-      <Link to={"/login"}>Logout</Link>
+    <div className="flex items-center mt-75">
+      <BiLogOut />
+      <Button
+        type="submit"
+        onClick={logout}
+        variant={"logout"}
+        className="bg-transparent cursor-pointer"
+      >
+        Logout
+      </Button>
     </div>
   );
 }

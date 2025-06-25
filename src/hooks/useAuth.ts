@@ -2,7 +2,6 @@ import type { loginSchemaDTO } from "@/lib/schema/schemaAuth";
 import { api } from "@/utils/api";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import Cookie from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -16,7 +15,7 @@ export function useLogin() {
       return token;
     },
     onSuccess: (data) => {
-      Cookie.set("acces-token", data);
+      localStorage.setItem("acces-token", data);
       navigate("/");
       toast.success("Login Succes!!");
     },

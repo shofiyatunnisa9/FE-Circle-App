@@ -3,7 +3,7 @@ import { IoHomeOutline } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-import { BiLogOut } from "react-icons/bi";
+
 import CreateDialog from "@/features/dialog/CreateDialog";
 import Logout from "@/features/auth/Logout";
 
@@ -32,10 +32,7 @@ function LeftBar() {
         </ul>
         <CreateDialog />
 
-        <p className="flex items-center gap-2 p-2 my-70 text-white">
-          <BiLogOut />
-          <Logout />
-        </p>
+        <Logout />
       </div>
     </div>
   );
