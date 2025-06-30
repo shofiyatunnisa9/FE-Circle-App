@@ -1,6 +1,6 @@
 import type { loginSchemaDTO } from "@/lib/schema/schemaAuth";
 import { api } from "@/utils/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -30,4 +30,55 @@ export function useLogin() {
     },
   });
   return { mutate, isPending };
+}
+
+export function useCurrentUser() {
+  const {
+    data: profile,
+    isLoading: loading,
+    error,
+  } = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      const token = localStorage.getItem("acces-token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
+      const response = await api.get("/profile");
+      
+      if (response.data.profile) {
+        return response.data.profile;
+      }
+      
+      return response.data;
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  return { profile, loading, error: error?.message || null };
+}
+
+export function useUserThreads() {
+  const {
+    data: threads,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["user-threads"],
+    queryFn: async () => {
+      const token = localStorage.getItem("acces-token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
+      const response = await api.get("/user/threads");
+      return response.data;
+    },
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+
+  return { threads, isLoading, error: error?.message || null };
 }

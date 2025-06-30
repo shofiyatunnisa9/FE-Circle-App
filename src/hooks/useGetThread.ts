@@ -1,4 +1,4 @@
-import type { typeThread, typeThreadPayload } from "@/lib/schema/schemaThread";
+import type { typeThreadPayload } from "@/lib/schema/schemaThread";
 import { api } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 

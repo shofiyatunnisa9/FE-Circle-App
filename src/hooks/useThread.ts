@@ -16,7 +16,9 @@ export function useThread() {
     mutationFn: async (data: schemaThreadDTO) => {
       const formData = new FormData();
       formData.append("content", data.content);
-      formData.append("images", data.images[0]);
+      if (data.images && data.images.length > 0) {
+        formData.append("images", data.images[0]);
+      }
 
       const res = await api.post("/post", formData, {
         headers: { "Content-Type": "multipart/form-data" },

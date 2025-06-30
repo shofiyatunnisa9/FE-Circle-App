@@ -4,11 +4,14 @@ import { Input } from "@/components/ui/input";
 import { useThread } from "@/hooks/useThread";
 import { schemaThread, type schemaThreadDTO } from "@/lib/schema/schemaThread";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCurrentUser } from "@/hooks/useAuth";
+
 import { useForm } from "react-hook-form";
 import { LuImagePlus } from "react-icons/lu";
 
 function Home() {
   const { mutateCreateThread, isPending } = useThread();
+  const { profile } = useCurrentUser();
   const {
     register,
     handleSubmit,
@@ -34,9 +37,9 @@ function Home() {
           <Avatar className="">
             <AvatarImage
               className="rounded-full size-10"
-              src="https://github.com/shadcn.png"
+              src={profile?.avatar || "https://github.com/shadcn.png"}
             />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>{profile?.fullname?.[0] || "U"}</AvatarFallback>
           </Avatar>
           <Input
             placeholder="What's Happening?!"
@@ -57,6 +60,7 @@ function Home() {
             accept="image/*"
             {...register("images")}
           />
+
           <Button
             type="submit"
             variant={"sho"}

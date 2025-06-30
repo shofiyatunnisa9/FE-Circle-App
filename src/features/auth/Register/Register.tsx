@@ -19,7 +19,6 @@ function Register() {
   });
   const submit = async (data: authSchemaDTO) => {
     try {
-      console.log(data);
       const res = await api.post("/register", data);
       toast.success("Register succes!");
       navigate("/login");
@@ -38,8 +37,17 @@ function Register() {
         <p></p>
         <Input
           className="w-sm"
+          id="fullname"
+          placeholder="Fullname"
+          {...register("fullname")}
+        />
+        {errors.fullname && (
+          <p className="text-red-600">{errors.fullname.message}</p>
+        )}
+        <Input
+          className="w-sm"
           id="username"
-          placeholder="username"
+          placeholder="Username"
           {...register("username")}
         />
         {errors.username && (
