@@ -1,4 +1,5 @@
 import type { loginSchemaDTO } from "@/lib/schema/schemaAuth";
+import type { typeThreadPayload } from "@/lib/schema/schemaThread";
 import { api } from "@/utils/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -46,11 +47,11 @@ export function useCurrentUser() {
       }
 
       const response = await api.get("/profile");
-      
+
       if (response.data.profile) {
         return response.data.profile;
       }
-      
+
       return response.data;
     },
     retry: false,
@@ -73,7 +74,7 @@ export function useUserThreads() {
         throw new Error("No token found");
       }
 
-      const response = await api.get("/user/threads");
+      const response = await api.get("/profile-home");
       return response.data;
     },
     retry: false,

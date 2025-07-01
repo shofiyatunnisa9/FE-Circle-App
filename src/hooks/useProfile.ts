@@ -7,7 +7,7 @@ export function useUpdateProfile() {
 
   return useMutation({
     mutationFn: async (formData: FormData) => {
-      const response = await api.patch("/profile", formData, {
+      const response = await api.patch("/profiles", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return response.data;

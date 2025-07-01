@@ -7,18 +7,36 @@ export const schemaThread = z.object({
 export type schemaThreadDTO = z.infer<typeof schemaThread>;
 
 export interface typeThread {
-  id: string;
+  id?: string;
+  _id?: string;
   content: string;
   images?: string;
   createdAt: string;
-  fullname: string;
-  username: string;
-  avatar: string;
+  updatedAt?: string;
+  userId?: string;
+  fullname?: string;
+  username?: string;
+  avatar?: string;
   likes?: number;
   replies?: number;
+  // Nested structure for detail view
+  user?: {
+    id: string;
+    username: string;
+    profile: {
+      fullname: string;
+      avatar: string;
+      createdAt: string;
+    };
+  };
 }
 
 export interface typeThreadPayload {
   message: string;
   payload: typeThread[];
+}
+
+export interface typeThreadDetailResponse {
+  message: string;
+  thread: typeThread;
 }

@@ -8,6 +8,7 @@ import ProfilePage from "@/pages/profilePage";
 import RegisterPage from "@/pages/registerPage";
 import ResetPage from "@/pages/resetPage";
 import SearchPage from "@/pages/searchPage";
+import ThreadDetailPage from "@/pages/threadDetail";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -15,6 +16,7 @@ export const router = createBrowserRouter([
     Component: ProtectedLayout,
     children: [
       { path: "/", Component: HomePage },
+      { path: "/threads/:id", Component: ThreadDetailPage },
       { path: "/profile", Component: ProfilePage },
       { path: "/search", Component: SearchPage },
       { path: "/follow", Component: FollowPage },

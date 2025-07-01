@@ -2,8 +2,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetThread } from "@/hooks/useGetThread";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineMessage } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 function Thread() {
+  const navigate = useNavigate();
   const { data, isLoading, error } = useGetThread();
   if (isLoading) return <h1>loading....</h1>;
   if (error) return <h1>ada error</h1>;
@@ -12,7 +14,11 @@ function Thread() {
   return (
     <div className="text-sm p-5 space-y-2  border-gray-700 border-t">
       {data?.payload?.map((thread) => (
-        <div key={thread.id} className="flex gap-3">
+        <div
+          key={thread.id}
+          className="flex gap-3 cursor-pointer rounded-lg p-2 hover:bg-gray-800"
+          onClick={() => navigate(`/threads/${thread.id}`)}
+        >
           <div>
             <Avatar>
               <AvatarImage src={thread?.avatar} />
