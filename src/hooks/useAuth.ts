@@ -1,5 +1,4 @@
 import type { loginSchemaDTO } from "@/lib/schema/schemaAuth";
-import type { typeThreadPayload } from "@/lib/schema/schemaThread";
 import { api } from "@/utils/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";

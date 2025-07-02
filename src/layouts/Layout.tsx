@@ -11,7 +11,6 @@ interface AppLayoutProps {
 function Layout({ children }: AppLayoutProps) {
   return (
     <div className="h-screen w-screen flex overflow-hidden  ">
-      {/* Sidebar */}
       <aside
         className="w-[270px] border-r  border-gray-700
         p-4 overflow-hidden"
@@ -19,19 +18,16 @@ function Layout({ children }: AppLayoutProps) {
         <LeftBar />
       </aside>
 
-      {/* Middle */}
       <main
         className="flex-1 max-w-[830px] border-r  border-gray-700
      overflow-y-auto scrollbar-hide"
       >
         {children}
-        {/* <Outlet /> */}
       </main>
 
-      {/* My Profile */}
       <aside
-        className="w-[340px]
-      overflow-hidden"
+        className="w-[350px] pl-4
+      "
       >
         <RightBar />
       </aside>

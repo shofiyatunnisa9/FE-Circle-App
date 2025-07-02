@@ -1,5 +1,7 @@
 import ProtectedAuth from "@/components/ui/protectedAuth";
 import ProtectedLayout from "@/components/ui/protectedLayout";
+import FollowerPage from "@/pages/followerPage";
+import FollowingPage from "@/pages/followingPage";
 import FollowPage from "@/pages/followPage";
 import ForgotPage from "@/pages/forgotPage";
 import HomePage from "@/pages/homePage";
@@ -20,6 +22,8 @@ export const router = createBrowserRouter([
       { path: "/profile", Component: ProfilePage },
       { path: "/search", Component: SearchPage },
       { path: "/follow", Component: FollowPage },
+      { path: "/follower", Component: FollowerPage },
+      { path: "/following", Component: FollowingPage },
     ],
   },
   {

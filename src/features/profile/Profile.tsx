@@ -5,6 +5,8 @@ import EditDialog from "../dialog/EditDialog";
 import ProfileList from "./ProfileList";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/useAuth";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import ProfileMedia from "./ProfileMedia";
 
 type ProfileType = {
   id: string;
@@ -25,7 +27,7 @@ function Profile() {
 
   // Placeholder jika data null
   const fullname = profile?.fullname || "Your Name";
-  const username = profile?.username
+  const username = profile?.username;
   const avatar = profile?.avatar || "https://github.com/shadcn.png";
   const banner =
     profile?.banner ||
@@ -40,7 +42,7 @@ function Profile() {
       <div className="flex items-center gap-4 p-3">
         <FaArrowLeftLong
           className="cursor-pointer"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
         />
         <div>
           <h2 className="text-xl font-bold">{fullname}</h2>
@@ -75,16 +77,31 @@ function Profile() {
           </span>
         </div>
       </div>
-      <div className="border-gray-700  ">
-        <div className=" flex mt-4 ">
-          <Button className="flex-1 py-3 px-4 text-white border-b-2 border-green-500 font-medium bg-transparent rounded-none">
-            All Post
-          </Button>
-          <Button className="flex-1 py-3 px-4 text-gray-400 hover:text-white bg-transparent rounded-nonw">
-            Media
-          </Button>
+      <div className="border-gray-700 ">
+        <div className="p-2">
+          <Tabs defaultValue="all">
+            <TabsList className="w-full bg-transparent">
+              <TabsTrigger
+                value="all"
+                className="cursor-pointer text-[#FFFFFF] rounded-none data-[state=active]:bg-transparent data-[state=active]:border-b-4 data-[state=active]:border-b-green-500  "
+              >
+                All Post
+              </TabsTrigger>
+              <TabsTrigger
+                value="media"
+                className="cursor-pointer text-[#FFFFFF] rounded-none data-[state=active]:bg-transparent data-[state=active]:border-b-4 data-[state=active]:border-b-green-500 "
+              >
+                Media
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="all">
+              <ProfileList />
+            </TabsContent>
+            <TabsContent value="media">
+              <ProfileMedia />
+            </TabsContent>
+          </Tabs>
         </div>
-        <ProfileList />
       </div>
     </div>
   );
