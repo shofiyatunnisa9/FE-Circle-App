@@ -4,7 +4,7 @@ import Following from "./Following";
 
 function Follow() {
   return (
-    <>
+    <div className="p-2">
       <Tabs defaultValue="all">
         <TabsList className="w-full bg-transparent ">
           <TabsTrigger
@@ -27,7 +27,7 @@ function Follow() {
           <Following />
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 }
 

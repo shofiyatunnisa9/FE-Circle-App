@@ -1,4 +1,7 @@
-import type { typeThreadPayload, typeThreadDetailResponse } from "@/lib/schema/schemaThread";
+import type {
+  typeThreadPayload,
+  typeThreadDetailResponse,
+} from "@/lib/schema/schemaThread";
 import { api } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 
@@ -22,6 +25,5 @@ export const useGetThreadById = (id: string) => {
       const res = await api.get<typeThreadDetailResponse>(`/threads/${id}`);
       return res.data.thread;
     },
-    
   });
 };

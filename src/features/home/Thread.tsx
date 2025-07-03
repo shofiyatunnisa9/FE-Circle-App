@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetThread } from "@/hooks/useGetThread";
+import { formatDateFromNow } from "@/utils/formatDate";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineMessage } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,12 @@ function Thread() {
         <div
           key={thread.id}
           className="flex gap-3 cursor-pointer rounded-lg p-2 hover:bg-gray-800"
-          onClick={() => navigate(`/threads/${thread.id}`)}
+          onClick={() => {
+            if (!thread.id) {
+              return;
+            }
+            navigate(`/threads/${thread.id}`);
+          }}
         >
           <div>
             <Avatar>
@@ -32,8 +38,7 @@ function Thread() {
                 @{thread?.username} ·
               </span>
               <span className="text-gray-500 text-xs ">
-                {" "}
-                {new Date(thread.createdAt).toLocaleDateString()}
+                {formatDateFromNow(thread.createdAt)}
               </span>
             </div>
             <p>{thread?.content}</p>

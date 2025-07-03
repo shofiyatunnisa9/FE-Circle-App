@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineMessage } from "react-icons/md";
 import { useUserThreads } from "@/hooks/useAuth";
+import { formatDateFromNow } from "@/utils/formatDate";
 
 export default function ProfileList() {
   const { threads, isLoading, error } = useUserThreads();
@@ -25,15 +26,19 @@ export default function ProfileList() {
             <div>
               <Avatar>
                 <AvatarImage src={thread.user?.profile?.avatar} />
-                <AvatarFallback>{thread.user?.profile?.fullname?.[0] || "U"}</AvatarFallback>
+                <AvatarFallback>
+                  {thread.user?.profile?.fullname?.[0] || "U"}
+                </AvatarFallback>
               </Avatar>
             </div>
             <div className="space-y-2">
               <div className="flex gap-3">
-                <span className="font-bold">{thread.user?.profile?.fullname}</span>
+                <span className="font-bold">
+                  {thread.user?.profile?.fullname}
+                </span>
                 <span className="text-gray-500 text-xs">
                   @{thread.user?.username} ·{" "}
-                  {new Date(thread.createdAt).toLocaleDateString()}
+                  {formatDateFromNow(thread.createdAt)}
                 </span>
               </div>
               <p>{thread.content}</p>

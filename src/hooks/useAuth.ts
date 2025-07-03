@@ -22,7 +22,8 @@ export function useLogin() {
 
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        const message = error.response?.data.message || "Unknow Error";
+        const message =
+          error.response?.data.message || "Please check your email or password";
         toast.error(message);
       } else {
         console.error("Unexpected Error :", error);
