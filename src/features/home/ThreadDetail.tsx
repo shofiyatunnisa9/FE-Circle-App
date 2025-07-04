@@ -110,7 +110,7 @@ function ThreadDetail() {
                 <img
                   src={thread.images}
                   alt="thread"
-                  className="rounded-lg  mt-2 max-h-70 object-cover"
+                  className="mt-2 max-h-70 object-cover"
                 />
               )}
               <div className="flex text-gray-400 gap-2 items-center">

@@ -43,11 +43,7 @@ export default function ProfileList() {
               </div>
               <p>{thread.content}</p>
               {thread.images && (
-                <img
-                  src={thread.images}
-                  alt="thread"
-                  className="rounded-md  mt-2 w-90"
-                />
+                <img src={thread.images} alt="thread" className="mt-2 w-90" />
               )}
               <div className="flex text-gray-400 gap-2 items-center">
                 <FaRegHeart /> {thread.likes || 0}

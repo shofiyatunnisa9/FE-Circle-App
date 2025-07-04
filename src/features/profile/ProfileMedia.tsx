@@ -16,13 +16,13 @@ function ProfileMedia() {
     return <div className="text-gray-600">No media found.</div>;
   }
   return (
-    <div className="grid grid-cols-3 gap-2">
+    <div className="grid grid-cols-3 gap-1">
       {mediaProfile.map((thread: MediaProfile) => (
-        <div key={thread.id} className="h-32 overflow-hidden rounded-md">
+        <div key={thread.id} className="h-60 w-full object-cover">
           <img
             src={thread.images}
             alt={thread.content}
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
           />
         </div>
       ))}
