@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetThreadById } from "@/hooks/useGetThread";
-import { FaRegHeart } from "react-icons/fa";
+import { useLiked } from "@/hooks/useLiked";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineMessage } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
@@ -31,6 +32,7 @@ function ThreadDetail() {
   const navigate = useNavigate();
   const { profile } = useCurrentUser();
   const { repliesMutate, isPending } = useReply();
+  const likeMutation = useLiked();
 
   useEffect(() => {
     if (!params.id || params.id === "undefined") {
@@ -53,6 +55,7 @@ function ThreadDetail() {
     images?: File;
     threadId: string;
   };
+
   const submit = (data: schemaReplyDTO) => {
     console.log("log :", data);
     const payload: ReplyTypeRequest = {
@@ -65,9 +68,17 @@ function ThreadDetail() {
       },
     });
   };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setValue("images", e.target.files[0]);
+    }
+  };
+
+  const handleLike = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (thread.id) {
+      likeMutation.mutate(thread.id);
     }
   };
 
@@ -92,7 +103,7 @@ function ThreadDetail() {
                 </AvatarFallback>
               </Avatar>
             </div>
-            <div>
+            <div className="flex-1">
               <div className="flex gap-3">
                 <span className="font-bold">
                   {thread?.user?.profile?.fullname}
@@ -113,9 +124,25 @@ function ThreadDetail() {
                   className="mt-2 max-h-70 object-cover"
                 />
               )}
-              <div className="flex text-gray-400 gap-2 items-center">
-                <FaRegHeart /> {thread.likes || 0}
-                <MdOutlineMessage /> {thread.replies || 0} Replies
+              <div className="flex text-gray-400 gap-4 items-center mt-2">
+                <button
+                  onClick={handleLike}
+                  disabled={likeMutation.isPending}
+                  className={`flex items-center gap-1 hover:text-red-500 transition-colors ${
+                    thread.isLiked ? "text-red-500" : ""
+                  }`}
+                >
+                  {thread.isLiked ? (
+                    <FaHeart className="text-red-500" />
+                  ) : (
+                    <FaRegHeart />
+                  )}
+                  <span>{thread.likeCount || 0}</span>
+                </button>
+                <div className="flex items-center gap-1">
+                  <MdOutlineMessage />
+                  <span>{thread.replyCount || 0} Replies</span>
+                </div>
               </div>
             </div>
           </div>

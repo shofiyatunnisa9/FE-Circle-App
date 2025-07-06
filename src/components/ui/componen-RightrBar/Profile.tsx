@@ -1,28 +1,33 @@
 import EditDialog from "@/features/dialog/EditDialog";
 import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 import { useCurrentUser } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileBar() {
   const { profile, loading, error } = useCurrentUser();
+  const navigate = useNavigate();
 
-  // Placeholder jika data null
   const fullname = profile?.fullname || "Your Name";
   const username = profile?.username || "username";
   const avatar = profile?.avatar || "https://github.com/shadcn.png";
-  const banner = profile?.banner || "https://plus.unsplash.com/premium_photo-1701590725747-ac131d4dcffd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2Vic2l0ZSUyMGJhbm5lcnxlbnwwfHwwfHx8MA%3D%3D";
+  const banner =
+    profile?.banner ||
+    "https://plus.unsplash.com/premium_photo-1701590725747-ac131d4dcffd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8d2Vic2l0ZSUyMGJhbm5lcnxlbnwwfHwwfHx8MA%3D%3D";
   const bio = profile?.bio || "Hello welcome to my pages !!";
 
-  if (loading) return <div className="bg-gray-800 p-4 rounded-lg pb-10">Loading...</div>;
-  if (error) return <div className="bg-gray-800 p-4 rounded-lg pb-10 text-red-500">{error}</div>;
-
+  if (loading)
+    return <div className="bg-gray-800 p-4 rounded-lg pb-10">Loading...</div>;
+  if (error)
+    return (
+      <div className="bg-gray-800 p-4 rounded-lg pb-10 text-red-500">
+        {error}
+      </div>
+    );
   return (
     <div className="bg-gray-800 p-4 rounded-lg pb-10">
       <h2 className="text-xl font-bold pb-2">My Profile</h2>
-      <img
-        src={banner}
-        className="w-full h-20 rounded-lg mb-[-60px]"
-      />
-      {/* <div className="w-full h-20 rounded-lg bg-gradient-to-r from-orange-300 via-orange-400 to-orange-300 mb-[-60px] "></div> */}
+
+      <img src={banner} className="w-full h-20 rounded-lg mb-[-60px]" />
 
       {/* Avatar & Edit Button */}
       <div className="flex justify-between  items-center mt-2 px-4">
@@ -39,8 +44,15 @@ export default function ProfileBar() {
             </div>
             <EditDialog />
           </div>
-          <p>{fullname}</p>
-          <p className="text-gray-500">@{username}</p>
+          <div
+            className="cursor-pointer"
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
+            <p>{fullname}</p>
+            <p className="text-gray-500">@{username}</p>
+          </div>
           <p className="text-sm">{bio}</p>
           <div className=" flex text-sm gap-5">
             <p className="text-gray-500">

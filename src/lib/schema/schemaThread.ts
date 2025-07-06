@@ -19,6 +19,11 @@ export interface typeThread {
   avatar?: string;
   likes?: number;
   replies?: number;
+
+  // Like properties
+  isLiked?: boolean;
+  likeCount?: number;
+  replyCount?: number;
   // Nested structure for detail view
   user?: {
     id: string;

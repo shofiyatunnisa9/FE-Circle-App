@@ -34,13 +34,11 @@ function Home() {
       <div className="p-5 w-auto border-gray-700 border-y">
         <h1 className="font-bold text-2xl mb-3">Home </h1>
         <div className="flex justify-center items-center gap-3">
-          <Avatar className="">
-            <AvatarImage
-              className="rounded-full size-10"
-              src={profile?.avatar || "https://github.com/shadcn.png"}
-            />
-            <AvatarFallback>{profile?.fullname?.[0] || "U"}</AvatarFallback>
-          </Avatar>
+          <img
+            src={profile?.avatar || "https://github.com/shadcn.png"}
+            className="rounded-full size-8"
+          />
+
           <Input
             placeholder="What's Happening?!"
             className="border-none"
