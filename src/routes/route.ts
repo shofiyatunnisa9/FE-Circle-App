@@ -31,8 +31,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "/login", Component: LoginPage },
       { path: "/register", Component: RegisterPage },
+      { path: "/reset/:token", Component: ResetPage },
       { path: "/forgot", Component: ForgotPage },
-      { path: "/reset", Component: ResetPage },
     ],
   },
 ]);
