@@ -1,4 +1,5 @@
-import type { loginSchemaDTO } from "@/lib/schema/schemaAuth";
+import type { forgotSchemaDTO, loginSchemaDTO } from "@/lib/schema/schemaAuth";
+import type { resetSchemaDTO } from "@/lib/schema/schemaAuth";
 import { api } from "@/utils/api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -82,4 +83,61 @@ export function useUserThreads() {
   });
 
   return { threads, isLoading, error: error?.message || null };
+}
+
+export function useReset() {
+  const navigate = useNavigate();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async ({
+      token,
+      data,
+    }: {
+      token: string;
+      data: resetSchemaDTO;
+    }) => {
+      const res = await api.patch(`/reset/${token}`, data);
+      return res.data.message;
+    },
+    onSuccess: (data) => {
+      toast.success(data);
+      navigate("/login");
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || error.message;
+
+        toast.error(message);
+      } else {
+        console.error("Unexpected Error");
+      }
+    },
+  });
+
+  return {
+    mutate,
+    isPending,
+  };
+}
+
+export function useForgot() {
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (data: forgotSchemaDTO) => {
+      const res = await api.post("/forgot", data);
+      return res.data.message;
+    },
+    onSuccess: () => {
+      toast.success("Check your email for the link reset password");
+    },
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        const message =
+          error.response?.data.message || error.message || "Error";
+        toast.error(message);
+      } else {
+        console.error("Error:", error);
+      }
+    },
+  });
+  return { mutate, isPending };
 }
