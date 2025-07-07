@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { useSearch } from "@/hooks/useSeacrh";
 import { useState } from "react";
 import { LuUserRoundSearch } from "react-icons/lu";
+import { FollowButton } from "../follow/FollowButton";
 function Search() {
   const [query, setQuery] = useState("");
   const { data: results = [], isLoading, isError } = useSearch(query);
@@ -19,28 +20,36 @@ function Search() {
           />
         </div>
       </div>
-      {isLoading && <p>Loading....</p>}
+      {isLoading && <p className="text-center text-gray-500">Loading....</p>}
       {isError && <p>failed to fetch users!!</p>}
 
       {results.length > 0 && (
         <ul className="mt-4 rounded-lg ">
           {results.map((user: any) => (
-            <li
+            <div
               key={user.id}
-              className="flex rounded-2xl items-center gap-3 p-3"
+              className="flex items-center justify-between p-4 rounded-lg"
             >
-              <Avatar>
-                <AvatarImage src={user?.avatar} />
-                <AvatarFallback>{user?.fullname?.[0] || "U"}</AvatarFallback>
-              </Avatar>
-
-              <div>
-                <p className="text-sm text-gray-200">{user.fullname}</p>
-                <p className="text-sm font-semibold text-gray-700">
-                  @{user.username}
-                </p>
+              <div className="flex items-center gap-3">
+                <Avatar>
+                  <AvatarImage
+                    className="rounded-full size-10"
+                    src={user.avatar}
+                  />
+                  <AvatarFallback>{user.fullname?.[0] || "U"}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm font-bold text-white">
+                    {user.fullname}
+                  </p>
+                  <p className="text-xs text-gray-400">@{user.username}</p>
+                </div>
               </div>
-            </li>
+              <FollowButton
+                userId={user.id}
+                initiallyFollowed={user.isFollowed}
+              />
+            </div>
           ))}
         </ul>
       )}

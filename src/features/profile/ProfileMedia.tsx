@@ -10,7 +10,7 @@ function ProfileMedia() {
   const { mediaProfile, isLoading, error } = useMediaProfile();
   if (isLoading) return <div className="text-gray-600">Loading...</div>;
   if (error) {
-    return <div className="text-red-500">Failed to load media.</div>;
+    return <div className="text-gray-500">Failed to load media.</div>;
   }
   if (!Array.isArray(mediaProfile)) {
     return <div className="text-gray-600">No media found.</div>;

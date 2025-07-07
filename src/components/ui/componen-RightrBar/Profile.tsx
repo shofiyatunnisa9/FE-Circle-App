@@ -56,10 +56,16 @@ export default function ProfileBar() {
           <p className="text-sm">{bio}</p>
           <div className=" flex text-sm gap-5">
             <p className="text-gray-500">
-              <span className="font-bold text-white"> 203</span> Following
+              <span className="font-bold text-white">
+                {profile?.followingCount || 0}
+              </span>{" "}
+              Following
             </p>
             <p className="text-gray-500">
-              <span className="font-bold text-white">1k</span> Followers
+              <span className="font-bold text-white">
+                {profile?.followersCount || 0}
+              </span>{" "}
+              Followers
             </p>
           </div>
         </div>

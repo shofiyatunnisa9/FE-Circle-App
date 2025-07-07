@@ -11,13 +11,17 @@ function Thread() {
   const { data, isLoading, error } = useGetThread();
   const likeMutation = useLiked();
 
-  if (isLoading) return <h1>loading....</h1>;
-  if (error) return <h1>ada error</h1>;
-  if (!data) return <h1>tidak ada data</h1>;
+  if (isLoading)
+    return <h1 className="text-sm items-center text-gray-600">loading....</h1>;
+  if (error)
+    return <h1 className="text-sm items-center text-gray-600">Error</h1>;
+  if (!data)
+    return (
+      <h1 className="text-sm items-center text-gray-600">Tidak ada data</h1>
+    );
 
   const handleLikeClick = (e: React.MouseEvent, threadId: string) => {
     e.stopPropagation();
-    console.log("Like clicked for threadId:", threadId);
     likeMutation.mutate(threadId);
   };
 

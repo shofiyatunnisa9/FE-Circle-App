@@ -14,6 +14,8 @@ type ProfileType = {
   avatar: string | null;
   banner: string | null;
   bio: string | null;
+  followingCount?: number;
+  followersCount?: number;
 };
 
 function Profile() {
@@ -69,10 +71,16 @@ function Profile() {
 
         <div className="flex gap-4 mt-3 text-sm text-gray-400">
           <span>
-            <span className="text-white font-medium">203</span> Following
+            <span className="text-white font-medium ">
+              {profile?.followingCount || 0}
+            </span>
+            Following
           </span>
           <span>
-            <span className="text-white font-medium">1k</span> Followers
+            <span className="text-white font-medium">
+              {profile?.followersCount || 0}
+            </span>
+            Followers
           </span>
         </div>
       </div>

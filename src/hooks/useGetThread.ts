@@ -15,14 +15,16 @@ export const useGetThread = () => {
   });
 };
 
-export const useGetThreadById = (id: string) => {
+export const useGetThreadById = (username: string) => {
   return useQuery({
-    queryKey: ["thread", id],
+    queryKey: ["thread", username],
     queryFn: async () => {
-      if (!id) {
+      if (!username) {
         throw new Error("Thread ID is required");
       }
-      const res = await api.get<typeThreadDetailResponse>(`/threads/${id}`);
+      const res = await api.get<typeThreadDetailResponse>(
+        `/threads/${username}`
+      );
       return res.data.thread;
     },
   });
