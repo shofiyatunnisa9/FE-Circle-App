@@ -30,15 +30,15 @@ export default function ProfileList() {
     navigate(`/threads/${threadId}`);
   };
   return (
-    <div className="text-sm">
+    <div className="text-sm ">
       {threads.payload.map((thread: any) => {
         return (
-          <div key={thread.id}>
+          <div key={thread.id} className="border-gray-700 border-b">
             <div
               className="flex gap-3 cursor-pointer p-2"
               onClick={() => handleThreadClick(thread.id!)}
             >
-              <div className="flex gap-3 border-gray-700 border-b p-3">
+              <div className="flex gap-3 p-3">
                 <div>
                   <Avatar>
                     <AvatarImage src={thread.user?.profile?.avatar} />

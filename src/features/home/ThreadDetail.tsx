@@ -57,7 +57,6 @@ function ThreadDetail() {
   };
 
   const submit = (data: schemaReplyDTO) => {
-    console.log("log :", data);
     const payload: ReplyTypeRequest = {
       ...data,
       threadId: params.id!,
@@ -96,12 +95,10 @@ function ThreadDetail() {
           </div>
           <div className="flex gap-5">
             <div>
-              <Avatar>
-                <AvatarImage src={thread?.user?.profile?.avatar} />
-                <AvatarFallback>
-                  {thread?.user?.profile?.fullname?.[0] || "U"}
-                </AvatarFallback>
-              </Avatar>
+              <img
+                src={thread?.user?.profile?.avatar}
+                className="rounded-full size-8"
+              />
             </div>
             <div className="flex-1">
               <div className="flex gap-3">
