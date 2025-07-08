@@ -7,6 +7,7 @@ import ForgotPage from "@/pages/forgotPage";
 import HomePage from "@/pages/homePage";
 import LoginPage from "@/pages/loginPage";
 import ProfilePage from "@/pages/profilePage";
+import { ProfileUserPage } from "@/pages/profileUserPage";
 import RegisterPage from "@/pages/registerPage";
 import ResetPage from "@/pages/resetPage";
 import SearchPage from "@/pages/searchPage";
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "/", Component: HomePage },
       { path: "/threads/:id", Component: ThreadDetailPage },
       { path: "/profile", Component: ProfilePage },
+      { path: "/profile/:username", Component: ProfileUserPage },
       { path: "/search", Component: SearchPage },
       { path: "/follow", Component: FollowPage },
       { path: "/follower", Component: FollowerPage },

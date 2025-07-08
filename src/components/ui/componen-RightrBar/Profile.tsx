@@ -27,7 +27,10 @@ export default function ProfileBar() {
     <div className="bg-gray-800 p-4 rounded-lg pb-10">
       <h2 className="text-xl font-bold pb-2">My Profile</h2>
 
-      <img src={banner} className="w-full h-20 rounded-lg mb-[-60px]" />
+      <img
+        src={banner}
+        className="w-full h-20 rounded-lg mb-[-60px] object-cover"
+      />
 
       {/* Avatar & Edit Button */}
       <div className="flex justify-between  items-center mt-2 px-4">
@@ -36,7 +39,7 @@ export default function ProfileBar() {
             <div>
               <Avatar className="size-15">
                 <AvatarImage
-                  className="border-gray-800 border-4 rounded-full"
+                  className="border-gray-800 border-4 rounded-full object-cover"
                   src={avatar}
                 />
                 <AvatarFallback>{fullname[0]}</AvatarFallback>

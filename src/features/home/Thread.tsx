@@ -29,6 +29,11 @@ function Thread() {
     navigate(`/threads/${threadId}`);
   };
 
+  const handleUsernameClick = (e: React.MouseEvent, username: string) => {
+    e.stopPropagation();
+    if (username) navigate(`/profile/${username}`);
+  };
+
   return (
     <div>
       {data?.payload?.map((thread) => {
@@ -40,7 +45,7 @@ function Thread() {
             >
               <div>
                 <Avatar>
-                  <AvatarImage src={thread?.avatar} />
+                  <AvatarImage src={thread?.avatar} className="object-cover" />
                   <AvatarFallback>
                     {thread?.fullname?.[0] || "U"}
                   </AvatarFallback>
@@ -50,7 +55,12 @@ function Thread() {
               <div className="flex-1">
                 <div className="flex gap-3">
                   <span className="font-bold">{thread?.fullname}</span>
-                  <span className="text-gray-500 text-xs">
+                  <span
+                    className="text-gray-500 text-xs cursor-pointer hover:text-green-500"
+                    onClick={(e) =>
+                      handleUsernameClick(e, thread?.username || "")
+                    }
+                  >
                     @{thread?.username} ·
                   </span>
                   <span className="text-gray-500 text-xs">
@@ -68,7 +78,7 @@ function Thread() {
                   />
                 )}
 
-                <div className="flex text-gray-400 gap-4 items-center mt-2 cursor-pointer">
+                <div className="flex text-gray-400 gap-4 items-center mt-2">
                   <button
                     onClick={(e) => handleLikeClick(e, thread.id!)}
                     disabled={likeMutation.isPending}
@@ -84,7 +94,7 @@ function Thread() {
                     <span>{thread.likeCount || 0}</span>
                   </button>
 
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 cursor-pointer">
                     <MdOutlineMessage />
                     <span>{thread.replyCount || 0} Replies</span>
                   </div>

@@ -4,9 +4,14 @@ import { useSearch } from "@/hooks/useSeacrh";
 import { useState } from "react";
 import { LuUserRoundSearch } from "react-icons/lu";
 import { FollowButton } from "../follow/FollowButton";
+import { useNavigate } from "react-router-dom";
 function Search() {
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const { data: results = [], isLoading, isError } = useSearch(query);
+  const handleUsernameClick = (username: string) => {
+    navigate(`/profile/${username}`);
+  };
   return (
     <>
       <div className="p-1 m-3 bg-gray-600 rounded-full border-gray-500 ">
@@ -31,18 +36,22 @@ function Search() {
               className="flex items-center justify-between p-4 rounded-lg"
             >
               <div className="flex items-center gap-3">
-                <Avatar>
-                  <AvatarImage
-                    className="rounded-full size-10"
-                    src={user.avatar}
-                  />
-                  <AvatarFallback>{user.fullname?.[0] || "U"}</AvatarFallback>
-                </Avatar>
+                <img
+                  src={user.avatar}
+                  className="rounded-full size-8"
+                  alt={user.fullname?.[0] || "U"}
+                />
+
                 <div>
                   <p className="text-sm font-bold text-white">
                     {user.fullname}
                   </p>
-                  <p className="text-xs text-gray-400">@{user.username}</p>
+                  <p
+                    className="text-xs text-gray-400 cursor-pointer hover:text-green-500"
+                    onClick={() => handleUsernameClick(user.username || "")}
+                  >
+                    @{user.username}
+                  </p>
                 </div>
               </div>
               <FollowButton

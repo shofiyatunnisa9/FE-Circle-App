@@ -5,6 +5,7 @@ import Following from "./Following";
 function Follow() {
   return (
     <div className="p-2">
+      <h1 className="font-bold text-2xl mb-3">Follows </h1>
       <Tabs defaultValue="following">
         <TabsList className="w-full bg-transparent ">
           <TabsTrigger
@@ -21,10 +22,10 @@ function Follow() {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="following">
-          <Follower />
+          <Following />
         </TabsContent>
         <TabsContent value="followers">
-          <Following />
+          <Follower />
         </TabsContent>
       </Tabs>
     </div>

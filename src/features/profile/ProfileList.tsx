@@ -5,9 +5,28 @@ import { MdOutlineMessage } from "react-icons/md";
 import { useUserThreads } from "@/hooks/useAuth";
 import { formatDateFromNow } from "@/utils/formatDate";
 import { useNavigate } from "react-router-dom";
+import { useThreadProfileUser } from "@/hooks/useProfile";
 
-export default function ProfileList() {
-  const { threads, isLoading, error } = useUserThreads();
+interface ProfileListProps {
+  username?: string;
+}
+
+export default function ProfileList({ username }: ProfileListProps) {
+  const {
+    threads: ownThreads,
+    isLoading: ownLoading,
+    error: ownError,
+  } = useUserThreads();
+  const {
+    threads: userThreads,
+    isLoading: userLoading,
+    error: userError,
+  } = useThreadProfileUser(username || "");
+
+  const threads = username ? userThreads : ownThreads;
+  const isLoading = username ? userLoading : ownLoading;
+  const error = username ? userError : ownError;
+
   const likeMutation = useLiked();
   const navigate = useNavigate();
 
@@ -15,20 +34,22 @@ export default function ProfileList() {
   if (error)
     return <div className="text-red-500 p-4">Error loading posts: {error}</div>;
   if (!threads?.payload || threads.payload.length === 0) {
-    return (
-      <div className="text-gray-400 p-4 text-center">
-        No posts yet. Create your first post!
-      </div>
-    );
+    return <div className="text-gray-400 p-4 text-center">No posts yet!!</div>;
   }
-
-  const handleLike = (e: React.MouseEvent, threadId: string) => {
+  const handleLikeClick = (e: React.MouseEvent, threadId: string) => {
     e.stopPropagation();
     likeMutation.mutate(threadId);
   };
+
   const handleThreadClick = (threadId: string) => {
     navigate(`/threads/${threadId}`);
   };
+
+  const handleUsernameClick = (e: React.MouseEvent, username: string) => {
+    e.stopPropagation();
+    navigate(`/profile/${username}`);
+  };
+
   return (
     <div className="text-sm ">
       {threads.payload.map((thread: any) => {
@@ -41,7 +62,10 @@ export default function ProfileList() {
               <div className="flex gap-3 p-3">
                 <div>
                   <Avatar>
-                    <AvatarImage src={thread.user?.profile?.avatar} />
+                    <AvatarImage
+                      src={thread.user?.profile?.avatar}
+                      className="object-cover"
+                    />
                     <AvatarFallback>
                       {thread.user?.profile?.fullname?.[0] || "U"}
                     </AvatarFallback>
@@ -52,7 +76,15 @@ export default function ProfileList() {
                     <span className="font-bold">
                       {thread.user?.profile?.fullname}
                     </span>
-                    <span className="text-gray-500 text-xs">
+                    <span
+                      className="text-gray-500 text-xs cursor-pointer hover:text-green-500"
+                      onClick={(e) =>
+                        handleUsernameClick(
+                          e,
+                          thread.user?.profile?.username || ""
+                        )
+                      }
+                    >
                       @{thread.user?.username} ·{" "}
                       {formatDateFromNow(thread.createdAt)}
                     </span>
@@ -67,7 +99,7 @@ export default function ProfileList() {
                   )}
                   <div className="flex text-gray-400 gap-4 items-center mt-2">
                     <button
-                      onClick={(e) => handleLike(e, thread.id)}
+                      onClick={(e) => handleLikeClick(e, thread.id!)}
                       disabled={likeMutation.isPending}
                       className={`flex items-center gap-1 hover:text-red-500 transition-colors cursor-pointer ${
                         thread.isLiked ? "text-red-500" : ""
@@ -80,6 +112,7 @@ export default function ProfileList() {
                       )}
                       <span>{thread.likeCount || 0}</span>
                     </button>
+
                     <div className="flex items-center gap-1 cursor-pointer">
                       <MdOutlineMessage />
                       <span>{thread.replyCount || 0} Replies</span>

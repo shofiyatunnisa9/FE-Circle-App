@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 function Login() {
-  const { mutate } = useLogin();
+  const { mutate, isPending } = useLogin();
   const {
     register,
     handleSubmit,
@@ -51,8 +51,12 @@ function Login() {
         </p>
       </div>
 
-      <Button className="basis-128 bg-green-400 cursor-pointer" type="submit">
-        Login
+      <Button
+        className="basis-128 bg-green-400 cursor-pointer"
+        type="submit"
+        disabled={isPending}
+      >
+        {isPending ? "Loading..." : "Login"}
       </Button>
       <div>
         <p className="text-white">
@@ -62,7 +66,6 @@ function Login() {
           </Link>
         </p>
       </div>
-      {/* <p>{isPending ? <span> Loading </span> : <span>Login</span>}</p> */}
     </form>
   );
 }

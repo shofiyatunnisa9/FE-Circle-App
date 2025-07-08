@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useGetThreadById } from "@/hooks/useGetThread";
 import { useLiked } from "@/hooks/useLiked";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -74,85 +73,91 @@ function ThreadDetail() {
     }
   };
 
-  const handleLike = (e: React.MouseEvent) => {
+  const handleLikeClick = (e: React.MouseEvent, threadId: string) => {
     e.stopPropagation();
-    if (thread.id) {
-      likeMutation.mutate(thread.id);
-    }
+    likeMutation.mutate(threadId);
+  };
+
+  const handleUsernameClick = (e: React.MouseEvent, username: string) => {
+    e.stopPropagation();
+    navigate(`/profile/${username}`);
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(submit)}>
-        <div className="text-sm p-5 space-y-3  border-gray-700 border-b">
-          <div className="flex items-center gap-4 pb-2">
-            <FaArrowLeftLong
-              className="cursor-pointer font-bold"
-              onClick={() => navigate(-1)}
+      <div className="text-sm p-5 space-y-3  border-gray-700 border-b">
+        <div className="flex items-center gap-4 pb-2">
+          <FaArrowLeftLong
+            className="cursor-pointer font-bold"
+            onClick={() => navigate(-1)}
+          />
+
+          <h2 className="text-xl font-bold">Status</h2>
+        </div>
+        <div className="flex gap-5">
+          <div>
+            <img
+              src={thread?.user?.profile?.avatar}
+              className="rounded-full size-10 object-cover"
             />
-
-            <h2 className="text-xl font-bold">Status</h2>
           </div>
-          <div className="flex gap-5">
-            <div>
-              <img
-                src={thread?.user?.profile?.avatar}
-                className="rounded-full size-8"
-              />
+          <div className="flex-1">
+            <div className="flex gap-3">
+              <span className="font-bold">
+                {thread?.user?.profile?.fullname}
+              </span>
+              <span
+                className="text-gray-500 text-xs cursor-pointer hover:text-green-500"
+                onClick={(e) =>
+                  handleUsernameClick(e, thread.user?.username || "")
+                }
+              >
+                @{thread?.user?.username} ·
+              </span>
+              <span className="text-gray-500 text-xs ">
+                {formatDateFromNow(thread.createdAt)}
+              </span>
             </div>
-            <div className="flex-1">
-              <div className="flex gap-3">
-                <span className="font-bold">
-                  {thread?.user?.profile?.fullname}
-                </span>
-                <span className="text-gray-500 text-xs ">
-                  @{thread?.user?.username} ·
-                </span>
-                <span className="text-gray-500 text-xs ">
-                  {formatDateFromNow(thread.createdAt)}
-                </span>
-              </div>
-              <p>{thread?.content}</p>
+            <p>{thread?.content}</p>
 
-              {thread?.images && (
-                <img
-                  src={thread.images}
-                  alt="thread"
-                  className="mt-2 max-h-70 object-cover"
-                />
-              )}
-              <div className="flex text-gray-400 gap-4 items-center mt-2">
-                <button
-                  onClick={handleLike}
-                  disabled={likeMutation.isPending}
-                  className={`flex items-center gap-1 hover:text-red-500 transition-colors ${
-                    thread.isLiked ? "text-red-500" : ""
-                  }`}
-                >
-                  {thread.isLiked ? (
-                    <FaHeart className="text-red-500" />
-                  ) : (
-                    <FaRegHeart />
-                  )}
-                  <span>{thread.likeCount || 0}</span>
-                </button>
-                <div className="flex items-center gap-1">
-                  <MdOutlineMessage />
-                  <span>{thread.replyCount || 0} Replies</span>
-                </div>
+            {thread?.images && (
+              <img
+                src={thread.images}
+                alt="thread"
+                className="mt-2 max-h-70 object-cover"
+              />
+            )}
+            <div className="flex text-gray-400 gap-4 items-center mt-2">
+              <button
+                onClick={(e) => handleLikeClick(e, thread.id!)}
+                disabled={likeMutation.isPending}
+                className={`flex items-center gap-1 hover:text-red-500 transition-colors cursor-pointer ${
+                  thread.isLiked ? "text-red-500" : ""
+                }`}
+              >
+                {thread.isLiked ? (
+                  <FaHeart className="text-red-500" />
+                ) : (
+                  <FaRegHeart />
+                )}
+                <span>{thread.likeCount || 0}</span>
+              </button>
+              <div className="flex items-center gap-1">
+                <MdOutlineMessage />
+                <span>{thread.replyCount || 0} Replies</span>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <form onSubmit={handleSubmit(submit)}>
         <div className="p-4 border-gray-700 border-b">
           <div className="flex gap-3 justify-center items-center">
-            <Avatar className="">
-              <AvatarImage
-                className="rounded-full size-10"
-                src={profile?.avatar || "https://github.com/shadcn.png"}
-              />
-              <AvatarFallback>{profile?.fullname?.[0] || "U"}</AvatarFallback>
-            </Avatar>
+            <img
+              src={profile?.avatar || "https://github.com/shadcn.png"}
+              className="rounded-full size-10"
+            />
+
             <Input
               type="text"
               placeholder="Type Your Reply!!"

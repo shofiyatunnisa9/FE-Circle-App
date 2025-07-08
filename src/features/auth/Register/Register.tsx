@@ -6,9 +6,11 @@ import { schemaAuth, type authSchemaDTO } from "@/lib/schema/schemaAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "@/utils/api";
 import { toast } from "sonner";
+import { useState } from "react";
 
 function Register() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -18,6 +20,7 @@ function Register() {
     resolver: zodResolver(schemaAuth),
   });
   const submit = async (data: authSchemaDTO) => {
+    setLoading(true);
     try {
       const res = await api.post("/register", data);
       toast.success("Register succes!");
@@ -64,8 +67,11 @@ function Register() {
         {errors.password && (
           <p className="text-red-600">{errors.password.message}</p>
         )}
-        <Button className="basis-128 bg-green-400 cursor-pointer">
-          Create
+        <Button
+          className="basis-128 bg-green-400 cursor-pointer"
+          disabled={loading}
+        >
+          {loading ? "Loading.." : "Create"}
         </Button>
         <div>
           <p className="text-white text-left">

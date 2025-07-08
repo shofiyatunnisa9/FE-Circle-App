@@ -1,14 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useReplyList } from "@/hooks/useReply";
 import { formatDateFromNow } from "@/utils/formatDate";
-import { FaRegHeart } from "react-icons/fa";
-import { MdOutlineMessage } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 interface ReplyProps {
   threadId: string;
 }
 
 function ReplyList({ threadId }: ReplyProps) {
+  const navigate = useNavigate();
   const { data, isLoading, error } = useReplyList(threadId);
   if (isLoading)
     return (
@@ -23,12 +23,17 @@ function ReplyList({ threadId }: ReplyProps) {
     );
 
   const replies = data?.replies || [];
+
+  const handleUsernameClick = (e: React.MouseEvent, username: string) => {
+    e.stopPropagation();
+    navigate(`/profile/${username}`);
+  };
   return (
-    <div className="text-sm p-5 space-y-2  border-gray-700 border-t">
+    <div className="text-sm p-5 space-y-2   ">
       {replies.map((reply: any) => (
         <div
           key={reply.id}
-          className="flex gap-3 cursor-pointer rounded-lg p-2 hover:bg-gray-800"
+          className="flex gap-3 cursor-pointer rounded-lg p-2 "
         >
           <div>
             <Avatar>
@@ -43,7 +48,12 @@ function ReplyList({ threadId }: ReplyProps) {
               <span className="font-bold">
                 {reply?.user?.profile?.fullname}
               </span>
-              <span className="text-gray-500 text-xs ">
+              <span
+                className="text-gray-500 text-xs cursor-pointer hover:text-green-500"
+                onClick={(e) =>
+                  handleUsernameClick(e, reply?.user?.username || "")
+                }
+              >
                 @{reply?.user?.username} ·
               </span>
               <span className="text-gray-500 text-xs ">
@@ -59,10 +69,6 @@ function ReplyList({ threadId }: ReplyProps) {
                 className="mt-2 max-h-70 object-cover"
               />
             )}
-            <div className="flex text-gray-400 gap-2 items-center">
-              <FaRegHeart /> {reply.likes || 0}
-              <MdOutlineMessage /> {reply.replies || 0} Replies
-            </div>
           </div>
         </div>
       ))}

@@ -3,8 +3,10 @@ import { Button } from "../button";
 import { useSuggest } from "@/hooks/useSuggest";
 import { useFollow } from "@/hooks/useFollow";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Suggested() {
+  const navigate = useNavigate();
   const { data: suggestUsers = [], isLoading, error } = useSuggest();
   const followMutation = useFollow();
   const [pendingUsers, setPendingUsers] = useState<Set<string>>(new Set());
@@ -28,9 +30,11 @@ function Suggested() {
       },
     });
   };
-
+  const handleUsernameClick = (username: string) => {
+    navigate(`/profile/${username}`);
+  };
   return (
-    <div className="bg-gray-800 p-4 rounded-lg mt-3 pb-7">
+    <div className="bg-gray-800 p-4 rounded-lg mt-3 pb-3">
       <h2 className="font-bold">Suggested for you</h2>
       {isLoading && <p>Loading....</p>}
       {error && <p>error...!!</p>}
@@ -48,9 +52,14 @@ function Suggested() {
                 />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <div className="">
+              <div>
                 <p>{user.profile?.fullname}</p>
-                <p className="text-sm -mt-1 text-gray-400">@{user.username}</p>
+                <p
+                  className="text-sm text-gray-500 cursor-pointer hover:text-green-500"
+                  onClick={() => handleUsernameClick(user.username || "")}
+                >
+                  @{user.username}
+                </p>
               </div>
             </div>
             <Button
