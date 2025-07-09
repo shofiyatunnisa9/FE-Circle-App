@@ -2,7 +2,6 @@ import React from "react";
 import LeftBar from "./components/LeftBar";
 import RightBar from "./components/RightBar";
 import "@/style/global.css";
-import { Outlet } from "react-router-dom";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -32,16 +31,6 @@ function Layout({ children }: AppLayoutProps) {
         <RightBar />
       </aside>
     </div>
-    // <div className="flex">
-    //   <div className="w-1/5 text-white p-4 border-gray-700 border-r">
-    //     <LeftBar />
-    //   </div>
-
-    //   <section className="flex-1 ">{children}</section>
-    //   <div className="w-1/4 text-white p-5 border-gray-700 border-l">
-    //     <RightBar />
-    //   </div>
-    // </div>
   );
 }
 

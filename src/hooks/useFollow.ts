@@ -10,7 +10,7 @@ export function useFollow() {
       return response.data;
     },
 
-    onSuccess: (data, followingId) => {
+    onSuccess: (_data, _followingId) => {
       // Refresh data di semua halaman yang relevan
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       queryClient.invalidateQueries({ queryKey: ["following"] });
@@ -38,7 +38,7 @@ export function useFollowUser(userId: string) {
       return response.data;
     },
 
-    onSuccess: (data) => {
+    onSuccess: (_data) => {
       // Refresh data di semua halaman yang relevan
       queryClient.invalidateQueries({ queryKey: ["profile"] });
       queryClient.invalidateQueries({ queryKey: ["following"] });

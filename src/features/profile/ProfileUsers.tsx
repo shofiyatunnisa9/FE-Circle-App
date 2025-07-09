@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ProfileList from "./ProfileList";
 import ProfileMedia from "./ProfileMedia";
 import { Button } from "@/components/ui/button";
+import { FollowButton } from "../follow/FollowButton";
 
 type ProfileUserType = {
   id: string;
@@ -64,12 +65,13 @@ export function ProfileUser({ username }: ProfileUserProp) {
         </Avatar>
 
         <p className="ml-145 mt-2">
-          <Button
+          <FollowButton userId={profile?.id} />
+          {/* <Button
             variant={"outline"}
             className="rounded-full bg-transparent cursor-pointer px-8 "
           >
             Follow
-          </Button>
+          </Button> */}
         </p>
       </div>
 

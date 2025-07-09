@@ -61,8 +61,8 @@ export function FollowButton({
 
   return (
     <Button
-      variant="ghost"
-      className="bg-gray-700 px-3 py-1 rounded-lg cursor-pointer"
+      variant={"ghost"}
+      className="rounded-full bg-transparent cursor-pointer px-8 border-1"
       onClick={handleFollow}
       disabled={isPending}
     >
