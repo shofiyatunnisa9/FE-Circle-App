@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { useSearch } from "@/hooks/useSeacrh";
 import { useState } from "react";
@@ -64,9 +63,7 @@ function Search() {
       )}
 
       {!isLoading && !isError && query.length >= 2 && results.length === 0 && (
-        <p className="mt-3 text-sm text-gray-500 text-center">
-          No users found.
-        </p>
+        <p className="mt-3 text-sm text-gray-500 text-center">No users found</p>
       )}
     </>
   );

@@ -1,6 +1,5 @@
 import { api } from "@/utils/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FaLeaf } from "react-icons/fa";
 import { toast } from "sonner";
 
 export function useUpdateProfile() {

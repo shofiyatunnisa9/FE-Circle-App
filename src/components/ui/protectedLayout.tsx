@@ -1,7 +1,17 @@
 import Layout from "@/layouts/Layout";
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function ProtectedLayout() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("acces-token");
+    if (!token) {
+      navigate("/login", { replace: true });
+    }
+  }, [navigate]);
+
   return (
     <Layout>
       <Outlet />
