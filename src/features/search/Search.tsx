@@ -37,7 +37,7 @@ function Search() {
               <div className="flex items-center gap-3">
                 <img
                   src={user.avatar}
-                  className="rounded-full size-8"
+                  className="rounded-full size-8 object-cover"
                   alt={user.fullname?.[0] || "U"}
                 />
 

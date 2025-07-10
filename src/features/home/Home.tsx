@@ -35,7 +35,7 @@ function Home() {
         <div className="flex justify-center items-center gap-3">
           <img
             src={profile?.avatar || "https://github.com/shadcn.png"}
-            className="rounded-full size-8"
+            className="rounded-full size-8 object-cover"
           />
 
           <Input

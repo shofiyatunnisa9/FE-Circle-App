@@ -37,7 +37,10 @@ function ReplyList({ threadId }: ReplyProps) {
         >
           <div>
             <Avatar>
-              <AvatarImage src={reply?.user?.profile?.avatar} />
+              <AvatarImage
+                src={reply?.user?.profile?.avatar}
+                className="object-cover"
+              />
               <AvatarFallback>
                 {reply?.user?.profile?.fullname?.[0] || "U"}
               </AvatarFallback>

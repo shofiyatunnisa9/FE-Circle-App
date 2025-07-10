@@ -39,7 +39,10 @@ function Follower() {
         <div key={user.id} className="flex items-center p-4  rounded-lg">
           <div className="flex items-center gap-3">
             <Avatar>
-              <AvatarImage className="rounded-full size-10" src={user.avatar} />
+              <AvatarImage
+                className="rounded-full size-10 object-cover"
+                src={user.avatar}
+              />
               <AvatarFallback>{user.fullname?.[0] || "U"}</AvatarFallback>
             </Avatar>
             <div>
