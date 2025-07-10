@@ -132,7 +132,7 @@ function EditDialog() {
               >
                 <Avatar className="size-20 -mt-14">
                   <AvatarImage
-                    className="border-gray-800 border-4 rounded-full"
+                    className="border-gray-800 border-4 rounded-full object-cover"
                     src={formData.avatar || "https://github.com/shadcn.png"}
                   />
                   <AvatarFallback>{formData.fullname[0] || "U"}</AvatarFallback>

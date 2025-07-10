@@ -62,7 +62,7 @@ function CreateDialog() {
           <div className="flex mb-5">
             <Avatar className="mt-1.5">
               <AvatarImage
-                className="rounded-full size-8"
+                className="rounded-full size-8 "
                 src={profile?.avatar || "https://github.com/shadcn.png"}
               />
               <AvatarFallback>{profile?.fullname?.[0] || "U"}</AvatarFallback>
