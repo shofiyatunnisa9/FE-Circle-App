@@ -31,7 +31,6 @@ function LeftBar() {
           </p>
         </ul>
         <CreateDialog />
-
         <Logout />
       </div>
     </div>
